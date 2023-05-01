@@ -19,10 +19,14 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
+    "@amcharts/amcharts4": "^4.10.35",
+    "@amcharts/amcharts4-geodata": "^4.1.26",
     "@remotion/cli": "3.3.84",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "remotion": "3.3.84"
+    "remotion": "3.3.84",
+    "remotion-animation": "^1.0.5",
+    "styled-components": "^5.3.10"
   },
   "packageManager": "npm@8.19.1"
 }
