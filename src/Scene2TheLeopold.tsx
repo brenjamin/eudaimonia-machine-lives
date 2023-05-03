@@ -1,17 +1,13 @@
-import {useEffect} from 'react';
 import {
 	AbsoluteFill,
 	interpolate,
 	useCurrentFrame,
 	staticFile,
 	Sequence,
+	Easing,
 } from 'remotion';
 import {Animation} from 'remotion-animation';
 import styled from 'styled-components';
-import * as am4core from '@amcharts/amcharts4/core';
-import * as am4maps from '@amcharts/amcharts4/maps';
-import am4geodata_worldLow from '@amcharts/amcharts4-geodata/worldLow';
-import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 export const Scene2TheLeopold: React.FC = () => {
 	const frame = useCurrentFrame();
@@ -25,98 +21,97 @@ export const Scene2TheLeopold: React.FC = () => {
 	const slowSpin = interpolate(frame, [0, 180], [0, 360]);
 	const fastSpin = interpolate(frame, [0, 90], [0, 360]);
 	const reverseSpin = interpolate(frame, [0, 45], [0, -360]);
+	const fastReverse = interpolate(frame, [0, 90], [0, -360]);
 
 	const machineProgress = interpolate(frame, [0, 90], [-100, 100]);
 
-	const opacity1 = interpolate(frame, [84, 85, 240, 255], [0, 1, 1, 0], {
+	const opacity1 = interpolate(frame, [84, 85, 300, 315], [0, 1, 1, 0], {
 		extrapolateRight: 'clamp',
 	});
-	const opacity2 = interpolate(frame, [89, 90, 240, 255], [0, 1, 1, 0], {
+	const opacity2 = interpolate(frame, [89, 90, 300, 315], [0, 1, 1, 0], {
 		extrapolateRight: 'clamp',
 	});
 
-	const landOpacity = interpolate(frame, [140, 155, 240, 255], [0, 1, 1, 0], {
+	const landOpacity = interpolate(frame, [140, 155, 300, 315], [0, 1, 1, 0], {
 		extrapolateLeft: 'clamp',
 		extrapolateRight: 'clamp',
 	});
-	const planOpacity = interpolate(frame, [165, 180, 240, 255], [0, 1, 1, 0], {
+	const landY = interpolate(frame, [140, 155, 300, 315], [-20, 0, 0, 20], {
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+	});
+	const planOpacity = interpolate(frame, [165, 180, 300, 315], [0, 1, 1, 0], {
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+	});
+	const planY = interpolate(frame, [165, 180, 300, 315], [-20, 0, 0, 20], {
 		extrapolateLeft: 'clamp',
 		extrapolateRight: 'clamp',
 	});
 
 	const constructionOpacity = interpolate(
 		frame,
-		[190, 205, 240, 255],
+		[190, 205, 300, 315],
 		[0, 1, 1, 0],
 		{
 			extrapolateLeft: 'clamp',
 			extrapolateRight: 'clamp',
 		}
 	);
+	const constructionY = interpolate(
+		frame,
+		[190, 205, 300, 315],
+		[-20, 0, 0, 20],
+		{
+			extrapolateLeft: 'clamp',
+			extrapolateRight: 'clamp',
+		}
+	);
 
-	const translateDown = interpolate(frame, [240, 255], [0, 20], {
+	const translateDown = interpolate(frame, [300, 315], [0, 20], {
 		extrapolateLeft: 'clamp',
 		extrapolateRight: 'clamp',
 	});
 
-	useEffect(() => {
-		// Themes begin
-		am4core.useTheme(am4themes_animated);
-		// Themes end
+	const earthScale = interpolate(frame, [360, 370], [0, 1], {
+		extrapolateRight: 'clamp',
+		extrapolateLeft: 'clamp',
+		easing: Easing.bounce,
+	});
+	const earthBg = interpolate(frame, [360, 560], [0, -175], {
+		extrapolateRight: 'clamp',
+		extrapolateLeft: 'clamp',
+	});
 
-		var chart = am4core.create('chartdiv', am4maps.MapChart);
+	const gearOpacity = interpolate(frame, [380, 381], [0, 100], {
+		extrapolateRight: 'clamp',
+		extrapolateLeft: 'clamp',
+	});
 
-		// Set map definition
-		chart.geodata = am4geodata_worldLow;
+	const gear1translateY = interpolate(frame, [420, 440], [150, 0], {
+		extrapolateRight: 'clamp',
+		extrapolateLeft: 'clamp',
+	});
 
-		// Set projection
-		chart.projection = new am4maps.projections.Orthographic();
-		chart.panBehavior = 'rotateLongLat';
-		chart.deltaLatitude = -20;
-		chart.padding(20, 20, 20, 20);
+	const gear2translateX = interpolate(frame, [490, 510], [150, 0], {
+		extrapolateRight: 'clamp',
+		extrapolateLeft: 'clamp',
+	});
 
-		// Create map polygon series
-		var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+	const gear2translateY = interpolate(frame, [490, 510], [-150, 0], {
+		extrapolateRight: 'clamp',
+		extrapolateLeft: 'clamp',
+	});
 
-		// Make map load polygon (like country names) data from GeoJSON
-		polygonSeries.useGeodata = true;
-		//polygonSeries.include = ["BR", "UA", "MX", "CI"];
+	const gear3translateX = interpolate(frame, [505, 525], [150, 0], {
+		extrapolateRight: 'clamp',
+		extrapolateLeft: 'clamp',
+	});
 
-		// Configure series
-		var polygonTemplate = polygonSeries.mapPolygons.template;
-		polygonTemplate.tooltipText = '{name}';
-		polygonTemplate.fill = am4core.color('#FF6633');
-		polygonTemplate.stroke = am4core.color('#000033');
-		polygonTemplate.strokeWidth = 0.5;
-		polygonTemplate.cursorOverStyle = am4core.MouseCursorStyle.pointer;
-		polygonTemplate.url = 'https://www.datadrum.com/main.php?package={id}';
-		polygonTemplate.urlTarget = '_blank';
-
-		var graticuleSeries = chart.series.push(new am4maps.GraticuleSeries());
-		graticuleSeries.mapLines.template.line.stroke = am4core.color('#ffffff');
-		graticuleSeries.mapLines.template.line.strokeOpacity = 0.08;
-		graticuleSeries.fitExtent = false;
-
-		chart.backgroundSeries.mapPolygons.template.polygon.fillOpacity = 0.1;
-		chart.backgroundSeries.mapPolygons.template.polygon.fill =
-			am4core.color('#ffffff');
-
-		// Create hover state and set alternative fill color
-		var hs = polygonTemplate.states.create('hover');
-		hs.properties.fill = chart.colors.getIndex(0).brighten(-0.5);
-
-		let animation;
-		animation = chart.animate(
-			{property: 'deltaLongitude', to: 100000},
-			2000000
-		);
-
-		chart.seriesContainer.events.on('down', function () {
-			//  animation.stop();
-		});
-	}, []);
-
-	useEffect(() => {}, []);
+	const gear3translateY = interpolate(frame, [505, 525], [-150, 0], {
+		extrapolateRight: 'clamp',
+		extrapolateLeft: 'clamp',
+	});
 
 	return (
 		<>
@@ -168,7 +163,7 @@ export const Scene2TheLeopold: React.FC = () => {
 						style={{
 							position: 'relative',
 							opacity: landOpacity,
-							transform: `translateY(${translateDown}px)`,
+							transform: `translateY(${landY}px)`,
 							border: '12px solid black',
 							height: '375px',
 						}}
@@ -178,7 +173,7 @@ export const Scene2TheLeopold: React.FC = () => {
 						style={{
 							position: 'relative',
 							opacity: planOpacity,
-							transform: `translateY(${translateDown}px)`,
+							transform: `translateY(${planY}px)`,
 							border: '12px solid black',
 							height: '375px',
 						}}
@@ -188,22 +183,325 @@ export const Scene2TheLeopold: React.FC = () => {
 						style={{
 							position: 'relative',
 							opacity: constructionOpacity,
-							transform: `translateY(${translateDown}px)`,
+							transform: `translateY(${constructionY}px)`,
 							border: '12px solid black',
 							height: '375px',
 						}}
 					/>
 				</div>
+			</AbsoluteFill>
+			<AbsoluteFill style={{justifyContent: 'center', alignItems: 'center'}}>
 				<div
-					id="chartdiv"
 					style={{
 						position: 'absolute',
-						top: '50%',
-						left: '50%',
-						transform: 'translate(-50%,-50%)',
+						width: '500px',
 						height: '500px',
+						display: 'flex',
+						justifyContent: 'center',
+						opacity: gearOpacity,
+						transform: `translateY(${gear1translateY}px)`,
 					}}
-				></div>
+				>
+					<svg
+						fill="#000000"
+						viewBox="0 -3.19 54.13 54.13"
+						id="Layer_1"
+						data-name="Layer 1"
+						xmlns="http://www.w3.org/2000/svg"
+						style={{
+							width: 200,
+							transform: 'translateY(-275px) translateX(-5px)',
+						}}
+					>
+						<path
+							d="M59.77,37.11l-.41-1c1.4-3.17,1.31-3.27,1-3.54l-1.79-1.75-.18-.15h-.21c-.11,0-.44,0-3.16,1.23l-1-.4c-1.3-3.21-1.43-3.21-1.81-3.21H49.72c-.38,0-.52,0-1.73,3.22l-1,.4a17.37,17.37,0,0,0-3.21-1.17h-.24l-1.93,1.89c-.29.28-.39.37,1.09,3.49l-.41,1C39,38.4,39,38.52,39,38.91v2.48c0,.39,0,.52,3.29,1.7l.41,1c-1.4,3.17-1.31,3.26-1,3.54l1.8,1.75.17.15h.21c.11,0,.43,0,3.16-1.24l1,.41c1.3,3.21,1.43,3.21,1.81,3.21h2.53c.38,0,.52,0,1.73-3.22l1-.41a17,17,0,0,0,3.2,1.18h.24l1.95-1.9c.27-.28.37-.38-1.11-3.49l.41-1c3.29-1.27,3.29-1.41,3.29-1.79V38.81C63.07,38.42,63.07,38.28,59.77,37.11ZM51,44.22a4.12,4.12,0,1,1,4.2-4.12A4.16,4.16,0,0,1,51,44.22Z"
+							transform={`translate(-8.93 -4.12) rotate(${fastReverse})`}
+							style={{
+								fill: '#496A72',
+								transformOrigin: 'center center',
+								transformBox: 'fill-box',
+							}}
+						/>
+						<path
+							d="M36,22.79l-.53-1.27c1.83-4.14,1.71-4.26,1.35-4.62l-2.34-2.29-.23-.19H34c-.14,0-.57,0-4.13,1.61l-1.31-.53c-1.69-4.19-1.86-4.19-2.36-4.19h-3.3c-.49,0-.68,0-2.25,4.21l-1.31.53a21.5,21.5,0,0,0-4.19-1.53h-.31L12.33,17c-.38.36-.51.49,1.42,4.57l-.53,1.26c-4.29,1.66-4.29,1.82-4.29,2.32v3.24c0,.51,0,.69,4.3,2.23l.54,1.26c-1.83,4.13-1.71,4.26-1.36,4.61l2.34,2.29L15,39h.27c.14,0,.56,0,4.12-1.61l1.31.53c1.69,4.19,1.86,4.19,2.36,4.19h3.3c.51,0,.69,0,2.26-4.21l1.31-.53a21.5,21.5,0,0,0,4.19,1.53h.31L37,36.38c.36-.36.48-.49-1.44-4.55l.53-1.26c4.29-1.66,4.29-1.83,4.29-2.33V25C40.34,24.5,40.34,24.32,36,22.79ZM24.64,32.08a5.39,5.39,0,1,1,5.48-5.39A5.46,5.46,0,0,1,24.64,32.08Z"
+							transform={`translate(-8.93 -4.12) rotate(${fastSpin})`}
+							style={{
+								fill: '#496A72',
+								transformOrigin: 'center center',
+								transformBox: 'fill-box',
+							}}
+						/>
+						<path
+							d="M58,11.62l-.35-.83c1.2-2.71,1.12-2.79.89-3L57,6.28l-.15-.13h-.18A9.91,9.91,0,0,0,54,7.2l-.86-.34c-1.1-2.74-1.22-2.74-1.54-2.74H49.47c-.33,0-.45,0-1.48,2.75l-.85.34a14.14,14.14,0,0,0-2.74-1h-.2L42.56,7.83c-.25.24-.34.32.92,3l-.34.83c-2.8,1.08-2.8,1.18-2.8,1.51v2.12c0,.33,0,.45,2.8,1.45l.35.82c-1.19,2.71-1.11,2.79-.88,3l1.53,1.49.15.14h.18a10,10,0,0,0,2.69-1.06l.85.35c1.11,2.73,1.22,2.73,1.55,2.73h2.15c.33,0,.45,0,1.48-2.74l.85-.35a14.89,14.89,0,0,0,2.73,1H57l1.66-1.62c.23-.23.31-.32-.94-3L58,16.7c2.8-1.09,2.8-1.2,2.8-1.52V13.07C60.84,12.73,60.84,12.62,58,11.62Zm-7.44,6.06a3.52,3.52,0,1,1,3.58-3.51A3.56,3.56,0,0,1,50.59,17.68Z"
+							transform={`translate(-8.93 -4.12) rotate(${fastReverse})`}
+							style={{
+								fill: '#496A72',
+								transformOrigin: 'center center',
+								transformBox: 'fill-box',
+							}}
+						/>
+					</svg>
+					<div
+						style={{
+							fontSize: '50px',
+							position: 'absolute',
+							top: '-64px',
+							left: '178px',
+							transform: `rotate(${fastSpin}deg)`,
+							transformOrigin: 'center center',
+						}}
+					>
+						😊
+					</div>
+					<div
+						style={{
+							fontSize: '37px',
+							position: 'absolute',
+							top: '-75.5px',
+							right: '184px',
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							transform: `rotate(${fastReverse}deg)`,
+							transformOrigin: 'center center',
+							lineHeight: 0,
+						}}
+					>
+						😊
+					</div>
+					<div
+						style={{
+							fontSize: '41px',
+							position: 'absolute',
+							top: '0',
+							right: '175px',
+							transform: `rotate(${fastReverse}deg)`,
+							transformOrigin: 'center center',
+						}}
+					>
+						😊
+					</div>
+				</div>
+				<div
+					style={{
+						position: 'absolute',
+						bottom: -200,
+						left: 500,
+						width: '500px',
+						height: '500px',
+						display: 'flex',
+						justifyContent: 'center',
+						transform: `translate(${gear2translateX}px, ${gear2translateY}px)`,
+						opacity: gearOpacity,
+					}}
+				>
+					<svg
+						fill="#000000"
+						viewBox="0 -3.19 54.13 54.13"
+						id="Layer_1"
+						data-name="Layer 1"
+						xmlns="http://www.w3.org/2000/svg"
+						style={{
+							width: 200,
+							transform: 'translateY(-275px) translateX(-5px)',
+						}}
+					>
+						<path
+							d="M59.77,37.11l-.41-1c1.4-3.17,1.31-3.27,1-3.54l-1.79-1.75-.18-.15h-.21c-.11,0-.44,0-3.16,1.23l-1-.4c-1.3-3.21-1.43-3.21-1.81-3.21H49.72c-.38,0-.52,0-1.73,3.22l-1,.4a17.37,17.37,0,0,0-3.21-1.17h-.24l-1.93,1.89c-.29.28-.39.37,1.09,3.49l-.41,1C39,38.4,39,38.52,39,38.91v2.48c0,.39,0,.52,3.29,1.7l.41,1c-1.4,3.17-1.31,3.26-1,3.54l1.8,1.75.17.15h.21c.11,0,.43,0,3.16-1.24l1,.41c1.3,3.21,1.43,3.21,1.81,3.21h2.53c.38,0,.52,0,1.73-3.22l1-.41a17,17,0,0,0,3.2,1.18h.24l1.95-1.9c.27-.28.37-.38-1.11-3.49l.41-1c3.29-1.27,3.29-1.41,3.29-1.79V38.81C63.07,38.42,63.07,38.28,59.77,37.11ZM51,44.22a4.12,4.12,0,1,1,4.2-4.12A4.16,4.16,0,0,1,51,44.22Z"
+							transform={`translate(-8.93 -4.12) rotate(${fastReverse})`}
+							style={{
+								fill: '#496A72',
+								transformOrigin: 'center center',
+								transformBox: 'fill-box',
+							}}
+						/>
+						<path
+							d="M36,22.79l-.53-1.27c1.83-4.14,1.71-4.26,1.35-4.62l-2.34-2.29-.23-.19H34c-.14,0-.57,0-4.13,1.61l-1.31-.53c-1.69-4.19-1.86-4.19-2.36-4.19h-3.3c-.49,0-.68,0-2.25,4.21l-1.31.53a21.5,21.5,0,0,0-4.19-1.53h-.31L12.33,17c-.38.36-.51.49,1.42,4.57l-.53,1.26c-4.29,1.66-4.29,1.82-4.29,2.32v3.24c0,.51,0,.69,4.3,2.23l.54,1.26c-1.83,4.13-1.71,4.26-1.36,4.61l2.34,2.29L15,39h.27c.14,0,.56,0,4.12-1.61l1.31.53c1.69,4.19,1.86,4.19,2.36,4.19h3.3c.51,0,.69,0,2.26-4.21l1.31-.53a21.5,21.5,0,0,0,4.19,1.53h.31L37,36.38c.36-.36.48-.49-1.44-4.55l.53-1.26c4.29-1.66,4.29-1.83,4.29-2.33V25C40.34,24.5,40.34,24.32,36,22.79ZM24.64,32.08a5.39,5.39,0,1,1,5.48-5.39A5.46,5.46,0,0,1,24.64,32.08Z"
+							transform={`translate(-8.93 -4.12) rotate(${fastSpin})`}
+							style={{
+								fill: '#496A72',
+								transformOrigin: 'center center',
+								transformBox: 'fill-box',
+							}}
+						/>
+						<path
+							d="M58,11.62l-.35-.83c1.2-2.71,1.12-2.79.89-3L57,6.28l-.15-.13h-.18A9.91,9.91,0,0,0,54,7.2l-.86-.34c-1.1-2.74-1.22-2.74-1.54-2.74H49.47c-.33,0-.45,0-1.48,2.75l-.85.34a14.14,14.14,0,0,0-2.74-1h-.2L42.56,7.83c-.25.24-.34.32.92,3l-.34.83c-2.8,1.08-2.8,1.18-2.8,1.51v2.12c0,.33,0,.45,2.8,1.45l.35.82c-1.19,2.71-1.11,2.79-.88,3l1.53,1.49.15.14h.18a10,10,0,0,0,2.69-1.06l.85.35c1.11,2.73,1.22,2.73,1.55,2.73h2.15c.33,0,.45,0,1.48-2.74l.85-.35a14.89,14.89,0,0,0,2.73,1H57l1.66-1.62c.23-.23.31-.32-.94-3L58,16.7c2.8-1.09,2.8-1.2,2.8-1.52V13.07C60.84,12.73,60.84,12.62,58,11.62Zm-7.44,6.06a3.52,3.52,0,1,1,3.58-3.51A3.56,3.56,0,0,1,50.59,17.68Z"
+							transform={`translate(-8.93 -4.12) rotate(${fastReverse})`}
+							style={{
+								fill: '#496A72',
+								transformOrigin: 'center center',
+								transformBox: 'fill-box',
+							}}
+						/>
+					</svg>
+					<div
+						style={{
+							fontSize: '50px',
+							position: 'absolute',
+							top: '-65px',
+							left: '179px',
+							transform: `rotate(${fastSpin}deg)`,
+							transformOrigin: 'center center',
+						}}
+					>
+						😊
+					</div>
+					<div
+						style={{
+							fontSize: '37px',
+							position: 'absolute',
+							top: '-75.5px',
+							right: '184px',
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							transform: `rotate(${fastReverse}deg)`,
+							transformOrigin: 'center center',
+							lineHeight: 0,
+						}}
+					>
+						😊
+					</div>
+					<div
+						style={{
+							fontSize: '41px',
+							position: 'absolute',
+							top: '-10px',
+							right: '177px',
+							transform: `rotate(${fastReverse}deg)`,
+							transformOrigin: 'center center',
+						}}
+					>
+						😊
+					</div>
+				</div>
+				<div
+					style={{
+						position: 'absolute',
+						bottom: -200,
+						right: 500,
+						width: '500px',
+						height: '500px',
+						display: 'flex',
+						justifyContent: 'center',
+						transform: `scaleX(-1) translate(${gear3translateX}px, ${gear3translateY}px)`,
+						opacity: gearOpacity,
+					}}
+				>
+					<svg
+						fill="#000000"
+						viewBox="0 -3.19 54.13 54.13"
+						id="Layer_1"
+						data-name="Layer 1"
+						xmlns="http://www.w3.org/2000/svg"
+						style={{
+							width: 200,
+							transform: 'translateY(-275px) translateX(-5px)',
+						}}
+					>
+						<path
+							d="M59.77,37.11l-.41-1c1.4-3.17,1.31-3.27,1-3.54l-1.79-1.75-.18-.15h-.21c-.11,0-.44,0-3.16,1.23l-1-.4c-1.3-3.21-1.43-3.21-1.81-3.21H49.72c-.38,0-.52,0-1.73,3.22l-1,.4a17.37,17.37,0,0,0-3.21-1.17h-.24l-1.93,1.89c-.29.28-.39.37,1.09,3.49l-.41,1C39,38.4,39,38.52,39,38.91v2.48c0,.39,0,.52,3.29,1.7l.41,1c-1.4,3.17-1.31,3.26-1,3.54l1.8,1.75.17.15h.21c.11,0,.43,0,3.16-1.24l1,.41c1.3,3.21,1.43,3.21,1.81,3.21h2.53c.38,0,.52,0,1.73-3.22l1-.41a17,17,0,0,0,3.2,1.18h.24l1.95-1.9c.27-.28.37-.38-1.11-3.49l.41-1c3.29-1.27,3.29-1.41,3.29-1.79V38.81C63.07,38.42,63.07,38.28,59.77,37.11ZM51,44.22a4.12,4.12,0,1,1,4.2-4.12A4.16,4.16,0,0,1,51,44.22Z"
+							transform={`translate(-8.93 -4.12) rotate(${fastReverse})`}
+							style={{
+								fill: '#496A72',
+								transformOrigin: 'center center',
+								transformBox: 'fill-box',
+							}}
+						/>
+						<path
+							d="M36,22.79l-.53-1.27c1.83-4.14,1.71-4.26,1.35-4.62l-2.34-2.29-.23-.19H34c-.14,0-.57,0-4.13,1.61l-1.31-.53c-1.69-4.19-1.86-4.19-2.36-4.19h-3.3c-.49,0-.68,0-2.25,4.21l-1.31.53a21.5,21.5,0,0,0-4.19-1.53h-.31L12.33,17c-.38.36-.51.49,1.42,4.57l-.53,1.26c-4.29,1.66-4.29,1.82-4.29,2.32v3.24c0,.51,0,.69,4.3,2.23l.54,1.26c-1.83,4.13-1.71,4.26-1.36,4.61l2.34,2.29L15,39h.27c.14,0,.56,0,4.12-1.61l1.31.53c1.69,4.19,1.86,4.19,2.36,4.19h3.3c.51,0,.69,0,2.26-4.21l1.31-.53a21.5,21.5,0,0,0,4.19,1.53h.31L37,36.38c.36-.36.48-.49-1.44-4.55l.53-1.26c4.29-1.66,4.29-1.83,4.29-2.33V25C40.34,24.5,40.34,24.32,36,22.79ZM24.64,32.08a5.39,5.39,0,1,1,5.48-5.39A5.46,5.46,0,0,1,24.64,32.08Z"
+							transform={`translate(-8.93 -4.12) rotate(${fastSpin})`}
+							style={{
+								fill: '#496A72',
+								transformOrigin: 'center center',
+								transformBox: 'fill-box',
+							}}
+						/>
+						<path
+							d="M58,11.62l-.35-.83c1.2-2.71,1.12-2.79.89-3L57,6.28l-.15-.13h-.18A9.91,9.91,0,0,0,54,7.2l-.86-.34c-1.1-2.74-1.22-2.74-1.54-2.74H49.47c-.33,0-.45,0-1.48,2.75l-.85.34a14.14,14.14,0,0,0-2.74-1h-.2L42.56,7.83c-.25.24-.34.32.92,3l-.34.83c-2.8,1.08-2.8,1.18-2.8,1.51v2.12c0,.33,0,.45,2.8,1.45l.35.82c-1.19,2.71-1.11,2.79-.88,3l1.53,1.49.15.14h.18a10,10,0,0,0,2.69-1.06l.85.35c1.11,2.73,1.22,2.73,1.55,2.73h2.15c.33,0,.45,0,1.48-2.74l.85-.35a14.89,14.89,0,0,0,2.73,1H57l1.66-1.62c.23-.23.31-.32-.94-3L58,16.7c2.8-1.09,2.8-1.2,2.8-1.52V13.07C60.84,12.73,60.84,12.62,58,11.62Zm-7.44,6.06a3.52,3.52,0,1,1,3.58-3.51A3.56,3.56,0,0,1,50.59,17.68Z"
+							transform={`translate(-8.93 -4.12) rotate(${fastReverse})`}
+							style={{
+								fill: '#496A72',
+								transformOrigin: 'center center',
+								transformBox: 'fill-box',
+							}}
+						/>
+					</svg>
+					<div
+						style={{
+							fontSize: '50px',
+							position: 'absolute',
+							top: '-65px',
+							left: '179px',
+							transform: `rotate(${fastSpin}deg)`,
+							transformOrigin: 'center center',
+						}}
+					>
+						😊
+					</div>
+					<div
+						style={{
+							fontSize: '37px',
+							position: 'absolute',
+							top: '-75.5px',
+							right: '184px',
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							transform: `rotate(${fastReverse}deg)`,
+							transformOrigin: 'center center',
+							lineHeight: 0,
+						}}
+					>
+						😊
+					</div>
+					<div
+						style={{
+							fontSize: '41px',
+							position: 'absolute',
+							top: '-10px',
+							right: '177px',
+							transform: `rotate(${fastReverse}deg)`,
+							transformOrigin: 'center center',
+						}}
+					>
+						😊
+					</div>
+				</div>
+			</AbsoluteFill>
+			<AbsoluteFill style={{alignItems: 'center', justifyContent: 'center'}}>
+				<div
+					id="earth"
+					style={{
+						transform: `scale(${earthScale})`,
+						overflow: 'hidden',
+					}}
+				>
+					<div
+						className="inner-earth"
+						style={{
+							display: 'flex',
+							height: '100%',
+							transform: `translateX(${earthBg}%)`,
+						}}
+					>
+						<img
+							src={staticFile('earth.jpeg')}
+							alt=""
+							style={{height: '100%', width: 'auto', maxWidth: 'none'}}
+						/>
+						<img
+							src={staticFile('earth.jpeg')}
+							alt=""
+							style={{
+								height: '100%',
+								width: 'auto',
+								transform: 'translateX(-1px)',
+								maxWidth: 'none',
+							}}
+						/>
+					</div>
+				</div>
 			</AbsoluteFill>
 			<AbsoluteFill
 				style={{
