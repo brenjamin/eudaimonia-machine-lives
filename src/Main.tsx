@@ -3,6 +3,8 @@ import {Narration} from './Narration';
 import {Scene1Imagination} from './Scene1Imagination';
 import {Scene2TheLeopold} from './Scene2TheLeopold';
 import {Scene3Story} from './Scene3Story';
+import {Scene4StorysEudaimoniaMachine} from './Scene4StorysEudaimoniaMachine';
+import {Scene5Salon} from './Scene5Salon';
 
 export const Main: React.FC = () => {
 	return (
@@ -18,6 +20,12 @@ export const Main: React.FC = () => {
 			</Sequence>
 			<Sequence from={870} durationInFrames={650}>
 				<Scene3Story />
+			</Sequence>
+			<Sequence from={1500} durationInFrames={300}>
+				<Scene4StorysEudaimoniaMachine />
+			</Sequence>
+			<Sequence from={1780} durationInFrames={1000}>
+				<Scene5Salon />
 			</Sequence>
 		</>
 	);
