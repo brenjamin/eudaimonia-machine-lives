@@ -5,6 +5,9 @@ import {Scene2TheLeopold} from './Scene2TheLeopold';
 import {Scene3Story} from './Scene3Story';
 import {Scene4StorysEudaimoniaMachine} from './Scene4StorysEudaimoniaMachine';
 import {Scene5Salon} from './Scene5Salon';
+import {Scene6StoryOffice} from './Scene6StoryOffice';
+import {Scene7StoryLibrary} from './Scene7StoryLibrary';
+import {Scene8StoryDeepWorkChambers} from './Scene8StoryDeepWorkChambers';
 
 export const Main: React.FC = () => {
 	return (
@@ -24,8 +27,17 @@ export const Main: React.FC = () => {
 			<Sequence from={1500} durationInFrames={300}>
 				<Scene4StorysEudaimoniaMachine />
 			</Sequence>
-			<Sequence from={1780} durationInFrames={1000}>
+			<Sequence from={1780} durationInFrames={620}>
 				<Scene5Salon />
+			</Sequence>
+			<Sequence from={2380} durationInFrames={560}>
+				<Scene6StoryOffice />
+			</Sequence>
+			<Sequence from={2920} durationInFrames={250}>
+				<Scene7StoryLibrary />
+			</Sequence>
+			<Sequence from={3150} durationInFrames={500}>
+				<Scene8StoryDeepWorkChambers />
 			</Sequence>
 		</>
 	);

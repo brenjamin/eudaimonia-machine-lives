@@ -47,6 +47,16 @@ export const Scene5Salon: React.FC = () => {
 			extrapolateRight: 'clamp',
 		}
 	);
+	const salon4Opacity = interpolate(frame, [480, 500], [0, 1]);
+	const salon4Slide = interpolate(
+		frame,
+		[460, 660],
+		[width / 12, -width / 12],
+		{
+			extrapolateLeft: 'clamp',
+			extrapolateRight: 'clamp',
+		}
+	);
 	return (
 		<>
 			<AbsoluteFill
@@ -101,6 +111,15 @@ export const Scene5Salon: React.FC = () => {
 				}}
 			>
 				<img src={staticFile('story-coffee.jpeg')} />
+			</AbsoluteFill>
+			<AbsoluteFill
+				style={{
+					transform: `scale(1.2) translateX(${salon4Slide}px)`,
+					opacity: salon4Opacity,
+					zIndex: 11,
+				}}
+			>
+				<img src={staticFile('story-salon-sign.jpeg')} />
 			</AbsoluteFill>
 		</>
 	);
