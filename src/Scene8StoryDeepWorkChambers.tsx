@@ -41,13 +41,31 @@ export const Scene8StoryDeepWorkChambers: React.FC = () => {
 	const chambers3Opacity = interpolate(frame, [230, 250], [0, 1]);
 	const chambers3Slide = interpolate(
 		frame,
-		[210, 410],
+		[210, 380],
 		[width / 12, -width / 12],
 		{
 			extrapolateLeft: 'clamp',
 			extrapolateRight: 'clamp',
 		}
 	);
+
+	const blur = interpolate(frame, [350, 360], [0, 4], {
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+	});
+	const overlayOpacity = interpolate(frame, [350, 380], [0, 1], {
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+	});
+
+	const relaxOpacity = interpolate(frame, [375, 390], [0, 1], {
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+	});
+	const relaxY = interpolate(frame, [375, 390], [-20, 0], {
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+	});
 	return (
 		<>
 			<AbsoluteFill
@@ -94,10 +112,32 @@ export const Scene8StoryDeepWorkChambers: React.FC = () => {
 				style={{
 					transform: `scale(1.2) translateX(${chambers3Slide}px)`,
 					opacity: chambers3Opacity,
+					filter: `blur(${blur}px)`,
 					zIndex: 11,
 				}}
 			>
 				<img src={staticFile('story-wellness.jpeg')} />
+			</AbsoluteFill>
+			<AbsoluteFill
+				style={{
+					backgroundColor: 'rgba(0,0,0,.8)',
+					opacity: overlayOpacity,
+					alignItems: 'center',
+					justifyContent: 'space-evenly',
+					flexDirection: 'row',
+					zIndex: 11,
+				}}
+			>
+				<div
+					style={{
+						fontSize: '400px',
+						color: 'white',
+						opacity: relaxOpacity,
+						transform: `translateY(${relaxY}px)`,
+					}}
+				>
+					💆‍♂️
+				</div>
 			</AbsoluteFill>
 		</>
 	);
