@@ -9,6 +9,8 @@ import {Scene6StoryOffice} from './Scene6StoryOffice';
 import {Scene7StoryLibrary} from './Scene7StoryLibrary';
 import {Scene8StoryDeepWorkChambers} from './Scene8StoryDeepWorkChambers';
 import {Scene9ColumnFiveMedia} from './Scene9ColumnFiveMedia';
+import {Scene10GreatRoom} from './Scene10GreatRoom';
+import {Scene11ConferenceRooms} from './Scene11ConferenceRooms';
 
 export const Main: React.FC = () => {
 	return (
@@ -40,8 +42,14 @@ export const Main: React.FC = () => {
 			<Sequence from={3150} durationInFrames={500}>
 				<Scene8StoryDeepWorkChambers />
 			</Sequence>
-			<Sequence from={3650} durationInFrames={1000}>
+			<Sequence from={3650} durationInFrames={560}>
 				<Scene9ColumnFiveMedia />
+			</Sequence>
+			<Sequence from={4190} durationInFrames={500}>
+				<Scene10GreatRoom />
+			</Sequence>
+			<Sequence from={4670} durationInFrames={380}>
+				<Scene11ConferenceRooms />
 			</Sequence>
 		</>
 	);

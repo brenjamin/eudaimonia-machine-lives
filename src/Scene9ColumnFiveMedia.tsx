@@ -22,31 +22,46 @@ export const Scene9ColumnFiveMedia: React.FC = () => {
 	const storyTitleOpacity = interpolate(frame, [40, 41], [0, 1], {
 		extrapolateRight: 'clamp',
 	});
-	const storyLogoOpacity = interpolate(frame, [80, 90], [0, 1], {
+	const logoOpacity = interpolate(frame, [80, 90], [0, 1], {
 		extrapolateRight: 'clamp',
 	});
-	const skylineSlide = interpolate(frame, [90, 120], [100, 0], {
-		extrapolateRight: 'clamp',
-		extrapolateLeft: 'clamp',
-	});
-	const starburstScale = interpolate(frame, [170, 180], [0, 1], {
+	const newportSlide = interpolate(frame, [110, 140], [100, 0], {
 		extrapolateRight: 'clamp',
 		extrapolateLeft: 'clamp',
-		easing: Easing.bounce,
 	});
-	const imagesOpacity = interpolate(frame, [195, 215], [0, 1], {
+
+	const blur = interpolate(frame, [205, 220], [0, 4], {
+		extrapolateLeft: 'clamp',
 		extrapolateRight: 'clamp',
 	});
-	const colorOpacity = interpolate(frame, [255, 275], [0, 1], {
+
+	const planOpacity = interpolate(frame, [205, 220], [0, 1], {
 		extrapolateRight: 'clamp',
 	});
-	const greenOpacity = interpolate(frame, [315, 335], [0, 1], {
+
+	const thinkingOpacity = interpolate(frame, [240, 255], [0, 1], {
 		extrapolateRight: 'clamp',
 	});
-	const rachelOpacity = interpolate(frame, [410, 425], [0, 1], {
+	const thinkingY = interpolate(
+		frame,
+		[240, 255, 440, 455],
+		[-20, 0, 0, -250],
+		{
+			extrapolateRight: 'clamp',
+		}
+	);
+	const diagramOpacity = interpolate(frame, [280, 295], [0, 1], {
 		extrapolateRight: 'clamp',
 	});
-	const aaronAndDavidOpacity = interpolate(frame, [460, 480], [0, 1], {
+	const diagramY = interpolate(frame, [280, 295, 440, 455], [-20, 0, 0, -250], {
+		extrapolateRight: 'clamp',
+	});
+
+	const machineY = interpolate(frame, [440, 455], [20, 0], {
+		extrapolateRight: 'clamp',
+	});
+
+	const machineOpacity = interpolate(frame, [440, 455], [0, 1], {
 		extrapolateRight: 'clamp',
 	});
 
@@ -66,117 +81,78 @@ export const Scene9ColumnFiveMedia: React.FC = () => {
 			</AbsoluteFill>
 			<AbsoluteFill
 				style={{
-					backgroundColor: 'black',
+					backgroundColor: 'white',
 					alignItems: 'center',
 					justifyContent: 'center',
-					opacity: storyLogoOpacity,
+					opacity: logoOpacity,
+					filter: `blur(${blur}px)`,
 				}}
 			>
 				<img
-					src={staticFile('story-logo.png')}
-					style={{position: 'relative', zIndex: 1}}
+					src={staticFile('column-five-logo.webp')}
+					style={{position: 'relative', zIndex: 1, width: '60%'}}
 				/>
 				<img
 					style={{
-						transform: `translateY(${skylineSlide}%)`,
+						transform: `translateY(${newportSlide}%)`,
 						position: 'absolute',
-						bottom: -50,
-						width: '100%',
+						bottom: -400,
+						width: '102%',
 						left: 'auto',
 						right: 'auto',
 					}}
-					src={staticFile('skyline.png')}
+					src={staticFile('newport-beach.png')}
 				/>
-				<div
-					className="starburst-wrapper"
-					style={{
-						transform: `rotate(15deg) scale(${starburstScale})`,
-					}}
-				>
-					<div className="starburst example" id="example-2">
-						<span>Pop-up shop</span>
-					</div>
-				</div>
 			</AbsoluteFill>
 			<AbsoluteFill
 				style={{
-					backgroundColor: 'black',
+					opacity: planOpacity,
+					background: 'rgba(255,255,255,.9)',
 					alignItems: 'center',
-					justifyContent: 'center',
-					opacity: storyLogoOpacity,
+					justifyContent: 'space-evenly',
+					flexDirection: 'row',
 				}}
 			>
-				<img
-					src={staticFile('story-logo.png')}
-					style={{position: 'relative', zIndex: 1}}
-				/>
-				<img
-					style={{
-						transform: `translateY(${skylineSlide}%)`,
-						position: 'absolute',
-						bottom: -50,
-						width: '100%',
-						left: 'auto',
-						right: 'auto',
-					}}
-					src={staticFile('skyline.png')}
-				/>
 				<div
-					className="starburst-wrapper"
 					style={{
-						transform: `rotate(15deg) scale(${starburstScale})`,
+						fontSize: '300px',
+						lineHeight: 0,
+						opacity: thinkingOpacity,
+						transform: `translateY(${thinkingY}px)`,
 					}}
 				>
-					<div className="starburst example" id="example-2">
-						<span>Pop-up shop</span>
-					</div>
+					🤔
 				</div>
-			</AbsoluteFill>
-			<AbsoluteFill style={{opacity: imagesOpacity, zIndex: 1}}>
-				<img src={staticFile('story-pop-up.jpeg')}></img>
-				<img
-					src={staticFile('story-color.jpeg')}
+				<svg
+					width="475px"
+					height="475px"
+					viewBox="0 0 1024 1024"
+					class="icon"
+					version="1.1"
+					xmlns="http://www.w3.org/2000/svg"
 					style={{
-						position: 'absolute',
-						inset: 0,
-						height: '100%',
-						width: '100%',
-						objectFit: 'cover',
-						opacity: colorOpacity,
+						opacity: diagramOpacity,
+						transform: `translateY(${diagramY}px)`,
 					}}
-				></img>
+				>
+					<path
+						d="M658.461676 324.594173V95.397443h-270.868862v41.672133h229.19673V512.118771h-83.344266v41.672132h208.360664v-41.672132h-83.344266v-145.852465h229.19673v520.901659h-229.19673v-187.524597h-41.672132v187.524597h-479.229527v-333.377062h145.852465v-41.672132h-145.852465v-375.049195h145.852465v-41.672133h-187.524597v833.442655h833.442654v-604.245925z"
+						fill="#f55119"
+					/>
+					<path
+						d="M825.150207 407.938439v416.721327h-166.688531v62.508199H887.658406v-479.229526zM554.281344 824.659766h-416.721327v62.508199h479.229527v-145.852464h-62.5082zM554.281344 178.741709h62.5082v333.377062h-62.5082z"
+						fill="#f55119"
+						fillOpacity={0.6}
+					/>
+				</svg>
 				<img
-					src={staticFile('story-green.jpeg')}
-					style={{
-						position: 'absolute',
-						inset: 0,
-						height: '100%',
-						width: '100%',
-						objectFit: 'cover',
-						opacity: greenOpacity,
-					}}
-				></img>
-
-				<img
-					src={staticFile('aaron-and-david.webp')}
-					style={{
-						position: 'absolute',
-						inset: 0,
-						height: '100%',
-						width: '100%',
-						objectFit: 'cover',
-						opacity: aaronAndDavidOpacity,
-					}}
-					alt=""
-				/>
-				<img
-					src={staticFile('rachel.png')}
+					src={staticFile('eudaimonia-machine-sm.png')}
 					style={{
 						position: 'absolute',
 						bottom: 0,
-						left: 0,
-						opacity: rachelOpacity,
-						height: '800px',
+						left: '50%',
+						opacity: machineOpacity,
+						transform: `translateX(-50%) translateY(${machineY}px) scaleX(-1)`,
 					}}
 					alt=""
 				/>
