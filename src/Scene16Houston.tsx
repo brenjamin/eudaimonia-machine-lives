@@ -75,12 +75,22 @@ export const Scene16Houston: React.FC = () => {
 		extrapolateLeft: 'clamp',
 	});
 
-	const shower = interpolate(frame, [680, 690, 800, 810], [0, 1, 1, 0], {
+	const shower = interpolate(frame, [680, 690, 850, 860], [0, 1, 1, 0], {
 		extrapolateRight: 'clamp',
 		extrapolateLeft: 'clamp',
 	});
 
-	const contemplative = interpolate(frame, [540, 550, 620, 630], [0, 1, 1, 0], {
+	const contemplative = interpolate(
+		frame,
+		[910, 920, 1050, 1061],
+		[0, 1, 1, 0],
+		{
+			extrapolateRight: 'clamp',
+			extrapolateLeft: 'clamp',
+		}
+	);
+
+	const showerX = interpolate(frame, [780, 790, 850, 860], [100, 0, 0, 100], {
 		extrapolateRight: 'clamp',
 		extrapolateLeft: 'clamp',
 	});
@@ -187,20 +197,7 @@ export const Scene16Houston: React.FC = () => {
 						transform: `translateX(${houstonX}px) scale(${houstonScale})`,
 						filter: 'brightness(110%) saturate(140%)',
 						backgroundColor: 'black',
-						clipPath: 'inset(50% 37.5% 15% 38%)',
-					}}
-				>
-					<img src={staticFile('houston.jpeg')} style={{width: '100%'}} />
-				</div>
-				<div
-					style={{
-						opacity: shower,
-						position: 'absolute',
-						width: '45%',
-						left: '4rem',
-						transform: `translateX(${houstonX}px) scale(${houstonScale})`,
-						filter: 'brightness(110%) saturate(140%)',
-						clipPath: 'inset(31% 48% 15% 38%)',
+						clipPath: 'inset(38% 37.5% 15% 38%)',
 					}}
 				>
 					<img src={staticFile('houston.jpeg')} style={{width: '100%'}} />
@@ -214,6 +211,32 @@ export const Scene16Houston: React.FC = () => {
 						transform: `translateX(${houstonX}px) scale(${houstonScale})`,
 						filter: 'brightness(110%) saturate(140%)',
 						clipPath: 'inset(31% 48% 15% 38%)',
+					}}
+				>
+					<img src={staticFile('houston.jpeg')} style={{width: '100%'}} />
+				</div>
+				<div
+					style={{
+						opacity: shower,
+						position: 'absolute',
+						width: '45%',
+						left: '4rem',
+						transform: `translateX(${houstonX}px) scale(${houstonScale})`,
+						filter: 'brightness(110%) saturate(140%)',
+						clipPath: 'inset(30.5% 37% 61% 52%)',
+					}}
+				>
+					<img src={staticFile('houston.jpeg')} style={{width: '100%'}} />
+				</div>
+				<div
+					style={{
+						opacity: contemplative,
+						position: 'absolute',
+						width: '45%',
+						left: '4rem',
+						transform: `translateX(${houstonX}px) scale(${houstonScale})`,
+						filter: 'brightness(110%) saturate(140%)',
+						clipPath: 'inset(21% 0% 15% 67%)',
 					}}
 				>
 					<img src={staticFile('houston.jpeg')} style={{width: '100%'}} />
@@ -283,6 +306,19 @@ export const Scene16Houston: React.FC = () => {
 						src={staticFile('houston-map.png')}
 						style={{position: 'relative', zIndex: 1}}
 					/>
+				</div>
+			</AbsoluteFill>
+			<AbsoluteFill>
+				<div
+					style={{
+						transform: `translateX(${showerX}%)`,
+						fontSize: '200px',
+						position: 'absolute',
+						top: '1rem',
+						right: '0rem',
+					}}
+				>
+					🚿
 				</div>
 			</AbsoluteFill>
 		</>
