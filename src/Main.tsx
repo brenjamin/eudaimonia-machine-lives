@@ -11,6 +11,11 @@ import {Scene8StoryDeepWorkChambers} from './Scene8StoryDeepWorkChambers';
 import {Scene9ColumnFiveMedia} from './Scene9ColumnFiveMedia';
 import {Scene10GreatRoom} from './Scene10GreatRoom';
 import {Scene11ConferenceRooms} from './Scene11ConferenceRooms';
+import {Scene12Library} from './Scene12Library';
+import {Scene13Office} from './Scene13Office';
+import {Scene14TheCavern} from './Scene14TheCavern';
+import {Scene15ColumnFiveEnd} from './Scene15ColumnFiveEnd';
+import {Scene16Houston} from './Scene16Houston';
 
 export const Main: React.FC = () => {
 	return (
@@ -50,6 +55,21 @@ export const Main: React.FC = () => {
 			</Sequence>
 			<Sequence from={4670} durationInFrames={380}>
 				<Scene11ConferenceRooms />
+			</Sequence>
+			<Sequence from={5030} durationInFrames={280}>
+				<Scene12Library />
+			</Sequence>
+			<Sequence from={5290} durationInFrames={480}>
+				<Scene13Office />
+			</Sequence>
+			<Sequence from={5750} durationInFrames={435}>
+				<Scene14TheCavern />
+			</Sequence>
+			<Sequence from={6185} durationInFrames={240}>
+				<Scene15ColumnFiveEnd />
+			</Sequence>
+			<Sequence from={6425} durationInFrames={1200}>
+				<Scene16Houston />
 			</Sequence>
 		</>
 	);
