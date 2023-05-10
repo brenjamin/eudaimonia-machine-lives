@@ -5,7 +5,7 @@
 
 import {Config} from 'remotion';
 
-Config.setMaxTimelineTracks(20);
+Config.setMaxTimelineTracks(25);
 Config.setImageFormat('jpeg');
 Config.setQuality(100);
 Config.setCrf(17);

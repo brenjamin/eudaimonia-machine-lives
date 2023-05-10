@@ -23,47 +23,6 @@ export const Scene7StoryLibrary: React.FC = () => {
 	const libraryOpacity = interpolate(frame, [0, 20], [0, 1]);
 	const librarySlide = interpolate(frame, [0, 200], [width / 12, -width / 12]);
 	const libraryTextOpacity = interpolate(frame, [0, 20, 80, 100], [0, 1, 1, 0]);
-
-	const office2Opacity = interpolate(frame, [140, 160], [0, 1]);
-	const office2Slide = interpolate(
-		frame,
-		[120, 320],
-		[width / 12, -width / 12],
-		{
-			extrapolateLeft: 'clamp',
-			extrapolateRight: 'clamp',
-		}
-	);
-	const office3Opacity = interpolate(frame, [230, 250], [0, 1]);
-	const office3Slide = interpolate(
-		frame,
-		[210, 410],
-		[width / 12, -width / 12],
-		{
-			extrapolateLeft: 'clamp',
-			extrapolateRight: 'clamp',
-		}
-	);
-	const office4Opacity = interpolate(frame, [310, 330], [0, 1]);
-	const office4Slide = interpolate(
-		frame,
-		[290, 490],
-		[width / 12, -width / 12],
-		{
-			extrapolateLeft: 'clamp',
-			extrapolateRight: 'clamp',
-		}
-	);
-	const office5Opacity = interpolate(frame, [450, 470], [0, 1]);
-	const office5Slide = interpolate(
-		frame,
-		[430, 630],
-		[width / 12, -width / 12],
-		{
-			extrapolateLeft: 'clamp',
-			extrapolateRight: 'clamp',
-		}
-	);
 	return (
 		<>
 			<AbsoluteFill

@@ -6,7 +6,7 @@
 	--story: 'Big Shoulders Display', sans-serif;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;500;600;700&family=Bebas+Neue&family=Jost:ital,wght@0,400;0,500;0,600;1,700');
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;500;600;700&family=Bebas+Neue&family=Jost:ital,wght@0,400;0,500;0,600;1,700&family=Roboto:wght@400;500;600;700');
 
 @keyframes spin {
 	from {
