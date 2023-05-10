@@ -1,4 +1,15 @@
-# Remotion video
+# The Eudaimonia Machine Lives!
+
+This is the third in a series of videos on the Eudaimonia Machine. This one covers three examples of the Eudaimonia Machine that have cropped up in the real world.
+
+[View YouTube Playlist](https://www.youtube.com/watch?v=IyRB3SbGnaY&list=PLliaWoyhTnjF6oQFYjviMGY4zAJHZHS2M)
+
+View other videos' repositories:
+
+- [The Eudaimonia Machine](https://github.com/brenjamin/eudaimonia-machine-video)
+- [The Leopold](https://github.com/brenjamin/the-leopold-eudaimonia-machine-video)
+
+## This video was made with Remotion
 
 <p align="center">
   <a href="https://github.com/remotion-dev/logo">
